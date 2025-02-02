@@ -19,7 +19,6 @@ body {
 }
 
 .briefcase {
-  background-color: gold;
   border: 2px solid #ffd700;
   padding: 20px;
   cursor: pointer;
