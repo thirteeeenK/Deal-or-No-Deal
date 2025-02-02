@@ -1,0 +1,122 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #1a1a1a;
+  color: white;
+}
+
+.game-container {
+  text-align: center;
+}
+
+.briefcases {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.briefcase {
+  background-color: gold;
+  border: 2px solid #ffd700;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #ffd700;
+}
+
+.briefcase:hover:not(.opened) {
+  transform: scale(1.05);
+  background-color: #2a2a2a;
+}
+
+.briefcase.opened {
+  background-color: #333;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.briefcase.selected {
+  border-color: #00ff00;
+  background-color: #004400;
+}
+
+.prizes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.prize {
+  padding: 10px;
+  background-color: #333;
+  border: 1px solid #ffd700;
+}
+
+.prize.eliminated {
+  opacity: 0.3;
+  text-decoration: line-through;
+}
+
+.banker-offer {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #333;
+  border: 2px solid #ffd700;
+  display: none;
+}
+
+.game-controls {
+  margin: 20px 0;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  background-color: #ffd700;
+  border: none;
+  color: black;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+button:hover {
+  background-color: #ffed4a;
+}
+
+button:disabled {
+  background-color: #666;
+  cursor: not-allowed;
+}
+
+.game-status {
+  margin: 20px 0;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.probability-box {
+  background-color: #333;
+  border: 2px solid #00ff00;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 400px;
+  border-radius: 10px;
+}
+
+.probability-box h3 {
+  color: #00ff00;
+  margin-top: 0;
+}
+
+.probability-details {
+  text-align: left;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #1a1a1a;
+  border-radius: 5px;
+}
