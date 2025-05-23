@@ -2,33 +2,54 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Deal or No Deal - Vehicle Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deal or No Deal</title>
     <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="game-container">
-      <h1>Deal or No Deal - Vehicle Edition</h1>
+      <header>
+        <h1>DEAL <span>or</span> NO DEAL</h1>
+        <div class="logo">💰</div>
+      </header>
+
       <div class="probability-box">
-        <h3>Winning Probability Calculator</h3>
+        <h3>Winning Probability</h3>
         <div class="probability-details" id="probabilityDetails">
           Loading probability...
         </div>
       </div>
+
       <div class="game-status" id="gameStatus">
         Select your briefcase to start!
       </div>
+
       <div class="briefcases" id="briefcases"></div>
+
       <div class="banker-offer" id="bankerOffer">
-        <h2>Banker's Offer</h2>
+        <div class="banker-image">💼</div>
+        <h2>BANKER'S OFFER</h2>
         <p id="offerText"></p>
-        <button onclick="acceptDeal()">Deal</button>
-        <button onclick="rejectDeal()">No Deal</button>
+        <div class="offer-buttons">
+          <button class="deal-btn" onclick="acceptDeal()">DEAL</button>
+          <button class="no-deal-btn" onclick="rejectDeal()">NO DEAL</button>
+        </div>
       </div>
-      <div class="prizes" id="prizes"></div>
+
+      <div class="prizes-container">
+        <h3>Remaining Prizes</h3>
+        <div class="prizes" id="prizes"></div>
+      </div>
+
       <div class="game-controls">
-        <button onclick="restartGame()">New Game</button>
+        <button class="restart-btn" onclick="restartGame()">NEW GAME</button>
       </div>
     </div>
+
+    <script src="script.js"></script>
   </body>
-  <script src="script.js"></script>
 </html>
