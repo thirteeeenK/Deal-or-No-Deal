@@ -429,7 +429,7 @@ button:active {
   .briefcase {
     padding: 15px 5px;
     height: 80px;
-    font-size: 1rem;  
+    font-size: 1rem;
   }
 
   .prizes {
@@ -446,4 +446,82 @@ button:active {
     flex-direction: column;
     gap: 10px;
   }
+}
+
+/* Animations */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(42, 157, 143, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(42, 157, 143, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(42, 157, 143, 0);
+  }
+}
+
+@keyframes moneyRain {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* NEW: Confetti Animation */
+@keyframes fallAndSpin {
+  0% {
+    transform: translateY(-50px) rotateX(0) rotateY(0) rotateZ(0);
+    opacity: 1;
+  }
+  100% {
+    /* Uses CSS custom properties set by JS for randomness */
+    transform: translateY(100vh) rotateX(var(--random-rotate-x))
+      rotateY(var(--random-rotate-y)) rotateZ(var(--random-rotate-z));
+    opacity: 0;
+  }
+}
+
+/* Added for .money-rain based on JS behavior */
+.money-rain {
+  position: absolute;
+  user-select: none;
+  pointer-events: none;
+  font-size: 2rem; /* Default size */
+  z-index: 999; /* Below confetti if they overlap */
+  animation-name: moneyRain; /* Uses existing moneyRain keyframes */
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  opacity: 1;
+}
+
+/* NEW: Confetti Piece Style */
+.confetti-piece {
+  position: absolute;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1000; /* Ensure it's on top */
+  animation-name: fallAndSpin;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  opacity: 1;
 }
