@@ -315,5 +315,248 @@ function restartGame() {
   initializeGame();
 }
 
+// ... (your existing JavaScript code above) ...
+
+function createMoneyRain() {
+  const container = document.querySelector(".game-container");
+  const moneySymbols = ["💰", "💵", "💴", "💶", "💷", "💸"];
+
+  for (let i = 0; i < 30; i++) {
+    const money = document.createElement("div");
+    money.className = "money-rain"; // Ensure this class is styled in CSS
+    money.innerHTML =
+      moneySymbols[Math.floor(Math.random() * moneySymbols.length)];
+    money.style.left = `${Math.random() * 100}%`;
+    // JS will set animationDuration and animationDelay directly now
+    // money.style.animationDuration = `${2 + Math.random() * 3}s`;
+    // money.style.animationDelay = `${Math.random() * 2}s`;
+
+    // For .money-rain to use keyframes defined in CSS properly:
+    const duration = 2 + Math.random() * 3;
+    const delay = Math.random() * 2;
+    money.style.animationDuration = `${duration}s`;
+    money.style.animationDelay = `${delay}s`;
+
+    container.appendChild(money);
+
+    // Remove after animation completes
+    setTimeout(() => {
+      money.remove();
+    }, (duration + delay + 0.5) * 1000); // Adjusted timeout
+  }
+}
+
+// NEW: Function to create confetti effect
+function createConfettiEffect() {
+  const container = document.querySelector(".game-container");
+  const confettiSymbols = ["🎉", "🎊", "✨", "🥳", "🎈", "⭐"];
+  const colors = [
+    "var(--primary)",
+    "var(--secondary)",
+    "var(--accent)",
+    "var(--success)",
+    "var(--info)",
+    "var(--money)",
+    "var(--highlight)",
+    "var(--light)",
+  ];
+
+  for (let i = 0; i < 100; i++) {
+    // More particles for a festive confetti effect
+    const confetti = document.createElement("div");
+    confetti.className = "confetti-piece";
+    confetti.innerHTML =
+      confettiSymbols[Math.floor(Math.random() * confettiSymbols.length)];
+    confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.left = `${Math.random() * 100}%`;
+    confetti.style.top = `${Math.random() * -50 - 50}px`; // Start above the container
+    confetti.style.fontSize = `${1 + Math.random() * 1.5}rem`;
+
+    // Set random rotation values for the animation
+    confetti.style.setProperty(
+      "--random-rotate-x",
+      `${Math.random() * 720 - 360}deg`
+    );
+    confetti.style.setProperty(
+      "--random-rotate-y",
+      `${Math.random() * 720 - 360}deg`
+    );
+    confetti.style.setProperty(
+      "--random-rotate-z",
+      `${Math.random() * 720 - 360}deg`
+    );
+
+    const duration = 3 + Math.random() * 4; // Duration of fall
+    const delay = Math.random() * 1.5; // Delay before starting
+    confetti.style.animationDuration = `${duration}s`;
+    confetti.style.animationDelay = `${delay}s`;
+
+    container.appendChild(confetti);
+
+    // Remove confetti element after animation + buffer
+    setTimeout(() => {
+      confetti.remove();
+    }, (duration + delay + 0.5) * 1000); // Ensure it's removed after animation completes
+  }
+}
+
+function formatMoney(amount) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: amount < 1 ? 2 : 0,
+  }).format(amount);
+}
+
+// ... (other functions like updateProbabilityDisplay, initializeGame, etc.)
+
+function createMoneyRain() {
+  const container = document.querySelector(".game-container");
+  if (!container) return; // Safety check
+  const moneySymbols = ["💰", "💵", "💴", "💶", "💷", "💸"];
+
+  for (let i = 0; i < 30; i++) {
+    const money = document.createElement("div");
+    money.className = "money-rain";
+    money.innerHTML =
+      moneySymbols[Math.floor(Math.random() * moneySymbols.length)];
+    money.style.left = `${Math.random() * 100}%`; // Relative to game-container width
+
+    const duration = 2 + Math.random() * 3;
+    const delay = Math.random() * 2;
+    money.style.animationDuration = `${duration}s`;
+    money.style.animationDelay = `${delay}s`;
+    // Note: The moneyRain keyframe uses translateY(100vh),
+    // so it will fall "through" the game-container and be clipped by its overflow:hidden.
+    // This is likely fine for the money effect within the box.
+    container.appendChild(money);
+
+    setTimeout(() => {
+      money.remove();
+    }, (duration + delay + 0.5) * 1000);
+  }
+}
+
+// UPDATED: Function to create confetti effect - now appends to body
+function createConfettiEffect() {
+  const container = document.body; // <--- KEY CHANGE: Append to document.body
+  const confettiSymbols = ["🎉", "🎊", "✨", "🥳", "🎈", "⭐"];
+  const colors = [
+    "var(--primary)",
+    "var(--secondary)",
+    "var(--accent)",
+    "var(--success)",
+    "var(--info)",
+    "var(--money)",
+    "var(--highlight)",
+    "var(--light)",
+  ];
+
+  for (let i = 0; i < 100; i++) {
+    const confetti = document.createElement("div");
+    confetti.className = "confetti-piece"; // CSS will handle position: absolute relative to viewport
+    confetti.innerHTML =
+      confettiSymbols[Math.floor(Math.random() * confettiSymbols.length)];
+    confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+    // Position across the viewport width, starting above it
+    confetti.style.left = `${Math.random() * 100}vw`; // Use vw for viewport width
+    confetti.style.top = `${-20 - Math.random() * 50}px`; // Start above the viewport
+
+    confetti.style.fontSize = `${1 + Math.random() * 1.5}rem`;
+
+    // Set random rotation values for the animation (used by fallAndSpin keyframes)
+    confetti.style.setProperty(
+      "--random-rotate-x",
+      `${Math.random() * 720 - 360}deg`
+    );
+    confetti.style.setProperty(
+      "--random-rotate-y",
+      `${Math.random() * 720 - 360}deg`
+    );
+    confetti.style.setProperty(
+      "--random-rotate-z",
+      `${Math.random() * 720 - 360}deg`
+    );
+
+    const duration = 3 + Math.random() * 4; // Duration of fall
+    const delay = Math.random() * 1.5; // Delay before starting
+    confetti.style.animationDuration = `${duration}s`;
+    confetti.style.animationDelay = `${delay}s`;
+
+    container.appendChild(confetti);
+
+    // Remove confetti element after animation + buffer
+    setTimeout(() => {
+      confetti.remove();
+    }, (duration + delay + 0.5) * 1000);
+  }
+}
+
+function acceptDeal() {
+  const offer = gameState.bankerOffers[gameState.bankerOffers.length - 1];
+  const selectedCase = gameState.briefcases.find(
+    (c) => c.number === gameState.selectedCase
+  );
+
+  document.getElementById("gameStatus").innerHTML = `
+    <p>Congratulations! You accepted the deal for:</p>
+    <p class="big-win">${formatMoney(offer)}</p>
+    <p>Your case had ${formatMoney(selectedCase.amount)}</p>
+  `;
+
+  endGame();
+  createMoneyRain(); // This will be contained within .game-container
+  createConfettiEffect(); // This will now be full screen
+}
+
+function rejectDeal() {
+  document.getElementById("bankerOffer").style.display = "none";
+
+  if (gameState.openedCases.length === gameState.briefcases.length - 2) {
+    const finalCase = gameState.briefcases.find(
+      (briefcase) => !briefcase.isOpened && !briefcase.isSelected
+    );
+    const selectedCase = gameState.briefcases.find(
+      (c) => c.number === gameState.selectedCase
+    );
+
+    const youWon = selectedCase.amount > finalCase.amount;
+    const message = youWon
+      ? `You WON! Your case had more money!`
+      : `The other case had more money!`;
+
+    document.getElementById("gameStatus").innerHTML = `
+      <p>${message}</p>
+      <p>Your case: ${formatMoney(selectedCase.amount)}</p>
+      <p>Other case: ${formatMoney(finalCase.amount)}</p>
+      <p class="big-win">${formatMoney(
+        Math.max(selectedCase.amount, finalCase.amount)
+      )}</p>
+    `;
+
+    endGame();
+    if (youWon) {
+      createMoneyRain(); // Contained
+      createConfettiEffect(); // Full screen
+    }
+  } else {
+    document.getElementById("gameStatus").innerText =
+      "No deal! Continue opening cases.";
+  }
+}
+
+function restartGame() {
+  // Clear any existing money rain (which are children of .game-container)
+  document
+    .querySelectorAll(".game-container .money-rain")
+    .forEach((el) => el.remove());
+  // Clear any existing confetti (which are children of body)
+  document
+    .querySelectorAll("body > .confetti-piece")
+    .forEach((el) => el.remove());
+  initializeGame();
+}
+
 // Initialize the game when the page loads
 document.addEventListener("DOMContentLoaded", initializeGame);
